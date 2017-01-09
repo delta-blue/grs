@@ -274,7 +274,10 @@ class SimpleAnalytics(object):
         """
         with open(fpath, 'w') as csv_file:
             output = csv.writer(csv_file)
-            output.writerows(self.__raw_data)
+            output.writerow(['Date', 'Volume', 'Value', 'Open', 'High', 'Low', 'Close', 'Diff', 'Number'])
+            for data in self.__raw_data:
+                data.pop(-1) # pop last empty element
+                output.writerow(data)
 
     def __serial_price(self, rows=6):
         """ 取出某一價格序列 *(舊→新)*
